@@ -17,6 +17,11 @@ const Tabel = () => {
                     </TableBody>
                 ))}
             </Tables>
+            <Btns>
+                <LeftBtn>&lt;</LeftBtn>
+                <NumBtn>1</NumBtn>
+                <RightBtn>&gt;</RightBtn>
+            </Btns>
         </Container>
     );
 };
@@ -26,12 +31,13 @@ export default Tabel;
 const Container = styled.div`
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
 `;
 
 const Tables = styled.div`
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     margin-top: 50px;
     width: 1000px;
@@ -77,13 +83,33 @@ const TableBody = styled.div`
 const BodyNum = styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 130px;
     color: #5f5f5f;
     border-right: 1px solid #cccccc;
 `;
 
 const BodyTitle = styled.div`
+    display: flex;
+    align-items: center;
     width: 870px;
-    padding-left: 30px;
+    padding-left: 50px;
     color: #5f5f5f;
+`;
+
+const Btns = styled.div``;
+
+const LeftBtn = styled.button`
+    all: unset;
+    margin-right: 10px;
+`;
+
+const RightBtn = styled.button`
+    all: unset;
+    margin-right: 10px;
+`;
+
+const NumBtn = styled.button`
+    all: unset;
+    margin-right: 10px;
 `;
