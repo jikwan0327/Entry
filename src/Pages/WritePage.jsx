@@ -1,17 +1,17 @@
-import styled, { ServerStyleSheet } from "styled-components";
+import styled from "styled-components";
 import Header from "../components/Header/Header";
-import Board from "../components/board";
+import Write from "../components/Write";
 
-const NoticeBoardPage = () => {
+const WritePage = () => {
     return (
         <Container>
             <Header></Header>
-            <Board></Board>
+            <Write></Write>
         </Container>
     );
 };
 
-export default NoticeBoardPage;
+export default WritePage;
 
 const Container = styled.div`
     display: flex;
@@ -19,4 +19,5 @@ const Container = styled.div`
     align-items: center;
     width: 100vw;
     height: 100vh;
+    background-color: #e0e0e0;
 `;
