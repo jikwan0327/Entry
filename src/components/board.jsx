@@ -54,8 +54,8 @@ const EditBtn = styled.button`
     height: 45px;
     color: white;
     border-radius: 100px;
-    top: 820px;
-    right: 555px;
+    bottom: 150px;
+    right: 500px;
     font-size: 15px;
     font-family: Noto Sans KR;
     font-weight: 600;
