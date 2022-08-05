@@ -1,13 +1,21 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
-import Tabel from "../components/Table";
+import Table from "../components/Table/Table";
 
 const MainPage = () => {
+  const [ok, setOk] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("accessToken") !== null) {
+      setOk(true);
+    }
+  });
+
   return (
     <Container>
-      <Header></Header>
+      <Header ok={ok}></Header>
       <PostList>게시물 목록</PostList>
-      <Tabel></Tabel>
+      <Table></Table>
     </Container>
   );
 };

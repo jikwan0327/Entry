@@ -1,12 +1,15 @@
 import styled, { ServerStyleSheet } from "styled-components";
 import Header from "../components/Header/Header";
-import Board from "../components/board";
+import Board from "../components/Board/board";
+import { useLocation } from "react-router-dom";
 
 const NoticeBoardPage = () => {
+  let location = useLocation();
+
   return (
     <Container>
       <Header></Header>
-      <Board></Board>
+      <Board location={location}></Board>
     </Container>
   );
 };

@@ -1,49 +1,22 @@
 import styled from "styled-components";
 
-const Table = () => {
-  const N = 10;
-  let no = new Array(N).fill(0);
-  return (
-    <Container>
-      <Tables>
-        <TabelHead>
-          <HeadNumber>No</HeadNumber>
-          <HeadTitle>제목</HeadTitle>
-        </TabelHead>
-        {no.map((no, index) => (
-          <TableBody>
-            <BodyNum key={index}>{index + 1}</BodyNum>
-            <BodyTitle>{no}s</BodyTitle>
-          </TableBody>
-        ))}
-      </Tables>
-      <Btns>
-        <LeftBtn>&lt;</LeftBtn>
-        <NumBtn>1</NumBtn>
-        <RightBtn>&gt;</RightBtn>
-      </Btns>
-    </Container>
-  );
-};
-
-export default Table;
-
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 `;
 
-const Tables = styled.div`
+export const Tables = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 1000px;
+  width: 800px;
   height: 540px;
+  margin-right: 120px;
 `;
 
-const TabelHead = styled.div`
+export const TabelHead = styled.div`
   display: flex;
   justify-content: center;
   width: 1000px;
@@ -52,7 +25,7 @@ const TabelHead = styled.div`
   border-bottom: 3px solid black;
 `;
 
-const HeadNumber = styled.div`
+export const HeadNumber = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,7 +34,7 @@ const HeadNumber = styled.div`
   font-weight: 500;
 `;
 
-const HeadTitle = styled.div`
+export const HeadTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,7 +43,7 @@ const HeadTitle = styled.div`
   font-weight: 600;
 `;
 
-const TableBody = styled.div`
+export const TableBody = styled.div`
   display: flex;
   justify-content: center;
   width: 1000px;
@@ -78,7 +51,7 @@ const TableBody = styled.div`
   border-bottom: 1px solid #cccccc;
 `;
 
-const BodyNum = styled.div`
+export const BodyNum = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,7 +60,7 @@ const BodyNum = styled.div`
   border-right: 1px solid #cccccc;
 `;
 
-const BodyTitle = styled.div`
+export const BodyTitle = styled.div`
   display: flex;
   align-items: center;
   width: 870px;
@@ -95,19 +68,21 @@ const BodyTitle = styled.div`
   color: #5f5f5f;
 `;
 
-const Btns = styled.div``;
+export const Btns = styled.div`
+  margin-left: 130px;
+`;
 
-const LeftBtn = styled.button`
+export const LeftBtn = styled.button`
   all: unset;
   margin-right: 10px;
 `;
 
-const RightBtn = styled.button`
+export const RightBtn = styled.button`
   all: unset;
   margin-right: 10px;
 `;
 
-const NumBtn = styled.button`
+export const NumBtn = styled.button`
   all: unset;
   margin-right: 10px;
 `;

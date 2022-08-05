@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "../components/Header/Header";
-import My from "../components/My";
-import Table from "../components/Table";
+import My from "../components/MyPage/My";
+import Table from "../components/Table/Table";
 
 const MyPage = () => {
   return (
@@ -19,5 +19,4 @@ export default MyPage;
 
 const Wrapper = styled.div`
   margin-top: 20px;
-  margin-left: 80px;
 `;
