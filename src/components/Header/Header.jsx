@@ -2,9 +2,21 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import * as S from "./style.jsx";
-import { ReqLogin } from "../../utils/axios.jsx";
 
-const Header = ({ ok }) => {
+const Header = () => {
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    alert("로그아웃 되었습니다");
+    window.location.href = "/";
+  };
+
+  const [ok, setOk] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("accessToken") !== null) {
+      setOk(true);
+    }
+  });
+
   return (
     <S.Container>
       <S.Circle></S.Circle>
@@ -23,7 +35,7 @@ const Header = ({ ok }) => {
           <Link to="/my" style={{ textDecoration: "none" }}>
             <S.SignUp>마이페이지</S.SignUp>
           </Link>
-          <S.SignUp>로그아웃</S.SignUp>
+          <S.SignUp onClick={logout}>로그아웃</S.SignUp>
         </S.Wrapper>
       ) : (
         <S.Wrapper>

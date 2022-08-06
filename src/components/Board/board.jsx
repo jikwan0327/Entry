@@ -12,11 +12,26 @@ const Board = ({ location }) => {
   const [isMine, setIsMine] = useState(false);
 
   useEffect(() => {
+    const getLoginInfo = () => {
+      axios
+        .get(`${URL}/posts/${location.state.data}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+        })
+        .then((res) => {
+          let data = res.data;
+          setIsMine(data.is_mine);
+          setContent(data.content);
+          setPoster(data.name);
+          setTitle(data.title);
+        });
+    };
+    getLoginInfo();
+  }, []);
+
+  useEffect(() => {
     const getInfo = () => {
       axios.get(`${URL}/posts/${location.state.data}`).then((res) => {
-        console.log(res.data);
         let data = res.data;
-        setIsMine(data.is_mine);
         setContent(data.content);
         setPoster(data.name);
         setTitle(data.title);

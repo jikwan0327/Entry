@@ -36,3 +36,9 @@ export const MyPosting = styled.div`
   font-weight: 800;
   font-size: 20px;
 `;
+
+export const EditImg = styled.img`
+  width: 30px;
+  height: 30px;
+  margin-left: 15px;
+`;

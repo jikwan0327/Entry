@@ -65,6 +65,7 @@ export const BodyTitle = styled.div`
   align-items: center;
   width: 870px;
   padding-left: 50px;
+  margin-top: 10px;
   color: #5f5f5f;
 `;
 
