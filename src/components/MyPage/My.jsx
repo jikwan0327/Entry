@@ -1,13 +1,20 @@
 import axios from "axios";
 import Basic from "../../imgs/profile.png";
 import * as S from "./style.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import editProfile from "../../imgs/editprofile.png";
+import Hover from "../../imgs/HoverEdit.png";
+import { ReqEditMyPage } from "../../utils/axios";
 
 const URL = "https://freshman.entrydsm.hs.kr";
 
 const My = () => {
   const [name, setName] = useState("이름");
+  const [content, setContent] = useState();
+  const [img, setImg] = useState(Basic);
+  const [hover, setHover] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const fileInput = useRef(null);
 
   useEffect(() => {
     const getMyInfo = () => {
@@ -19,21 +26,81 @@ const My = () => {
           console.log(res.data);
           let data = res.data;
           setName(data.name);
+          setContent(data.introduce);
         });
     };
     getMyInfo();
   }, []);
 
+  const Edit = () => {
+    setEdit(true);
+    setHover(false);
+  };
+
+  const CEdit = () => {
+    setEdit(false);
+    ReqEditMyPage(img, name, content);
+  };
+
+  const onChange = (e) => {
+    if (e.target.files[0]) {
+      setImg(e.target.files[0]);
+    } else {
+      setImg(Basic);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImg(reader.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
   return (
     <>
       <S.Container>
-        <S.Profile src={Basic}></S.Profile>
+        <input type="file" onChange={onChange} style={{ display: "none" }} accept="image/*" ref={fileInput} />
+        {edit ? (
+          <S.Profile src={img} onClick={() => fileInput.current.click()}></S.Profile>
+        ) : (
+          <S.Profile src={img}></S.Profile>
+        )}
         <S.Wrapper>
-          <S.Name>{name}</S.Name>
-          <S.EditImg src={editProfile} />
-          <S.Explain>
-            엔트리는 우리 학교의 최고의 동아리이며, 학생들의 입학부터 취업까지 도와주는 엄청난 동아리 라고 할 수 있죠
-          </S.Explain>
+          {edit ? (
+            <>
+              <S.Wrapper3>
+                <S.EditName
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                ></S.EditName>
+                <S.Confrim onClick={CEdit}>완료</S.Confrim>
+              </S.Wrapper3>
+              <S.EditExplain
+                placeholder="자기소개"
+                value={content}
+                onChange={(e) => {
+                  setContent(e.target.value);
+                }}
+              ></S.EditExplain>
+            </>
+          ) : (
+            <>
+              <S.Wrapper2>
+                <S.Name>{name}</S.Name>
+                <S.EditImg
+                  onMouseOver={() => setHover(true)}
+                  onMouseOut={() => setHover(false)}
+                  onClick={Edit}
+                  src={hover ? Hover : editProfile}
+                />
+              </S.Wrapper2>
+              <S.Explain>{content}</S.Explain>
+            </>
+          )}
         </S.Wrapper>
       </S.Container>
       <S.MyPosting>나의 게시물</S.MyPosting>

@@ -14,8 +14,10 @@ const Header = () => {
   useEffect(() => {
     if (localStorage.getItem("accessToken") !== null) {
       setOk(true);
+    } else {
+      setOk(false);
     }
-  });
+  }, [ok]);
 
   return (
     <S.Container>

@@ -7,16 +7,27 @@ export const Container = styled.div`
 `;
 
 export const Profile = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
+  border-radius: 500px;
 `;
 
 export const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   width: 750px;
   flex-wrap: wrap;
   margin-left: 40px;
   margin-top: 8px;
+`;
+
+export const Wrapper2 = styled.div`
+  display: flex;
+`;
+
+export const Wrapper3 = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const Name = styled.div`
@@ -32,7 +43,7 @@ export const Explain = styled.div`
 
 export const MyPosting = styled.div`
   margin-left: 500px;
-  margin-top: 60px;
+  margin-top: 30px;
   font-weight: 800;
   font-size: 20px;
 `;
@@ -41,4 +52,36 @@ export const EditImg = styled.img`
   width: 30px;
   height: 30px;
   margin-left: 15px;
+`;
+
+export const Confrim = styled.button`
+  border-radius: 100px;
+  width: 85px;
+  height: 35px;
+  border: 0;
+  outline: 0;
+  background-color: #5f85bb;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+`;
+
+export const EditName = styled.input`
+  width: 100px;
+  height: 30px;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid darkgray;
+  font-size: 16px;
+`;
+
+export const EditExplain = styled.textarea`
+  width: 800px;
+  height: 42px;
+  border: 0;
+  border: 1px solid darkgray;
+  border-radius: 8px;
+  padding-left: 10px;
+  padding-top: 5px;
+  margin-top: 8px;
 `;

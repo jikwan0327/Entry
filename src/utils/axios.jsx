@@ -65,12 +65,16 @@ export const ReqPosting = (title, content) => {
   };
 };
 
-export const ReqPostLists = () => {
+export const ReqEditMyPage = (img, name, introduce) => {
   return function () {
     axios
-      .get(URL + "/posts/lists", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-      })
+      .patch(
+        URL + "/users/mypage",
+        { profile_image_url: img, name, introduce },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+        }
+      )
       .then((res) => {
         console.log(res.data);
       })
@@ -79,3 +83,32 @@ export const ReqPostLists = () => {
       });
   };
 };
+
+// export const ReqDelete = (id) => {
+//   return function () {
+//     axios.delete(URL + "/posts/", {
+//       headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+//     });
+//     window.location.href = "/";
+//     alert("hi");
+//   };
+// };
+
+// export const ReqEditPost = (id, title, content) => {
+//   return function () {
+//     axios
+//       .patch(
+//         URL + `/users/${id}`,
+//         { title, content },
+//         {
+//           headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+//         }
+//       )
+//       .then((res) => {
+//         console.log(res.data);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+// };

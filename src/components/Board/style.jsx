@@ -29,11 +29,25 @@ export const Title = styled.div``;
 
 export const PostMan = styled.div``;
 
+export const TitleInput = styled.input`
+  outline: 0;
+  padding: 10px;
+`;
+
+export const BodyInput = styled.input`
+  outline: 0;
+  margin-left: 30px;
+  margin-top: 30px;
+  padding-bottom: 400px;
+`;
+
 export const Body = styled.div`
   padding: 30px;
+  outline: 0;
 `;
 
 export const EditBtn = styled.button`
+  margin-left: 30px;
   border: 0;
   outline: 0;
   background-color: #5f85bb;
@@ -44,6 +58,8 @@ export const EditBtn = styled.button`
   font-size: 15px;
   font-family: Noto Sans KR;
   margin-top: 50px;
-  margin-left: 830px;
   font-weight: 600;
+`;
+export const BtnContainer = styled.div`
+  margin-left: 660px;
 `;
