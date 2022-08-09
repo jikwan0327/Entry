@@ -1,19 +1,22 @@
 import styled from "styled-components";
 import Header from "../components/Header/Header";
-import SignUp from "../components/Login/Signup.jsx";
+import Login from "../components/Login/Login";
+import { ReqLogin } from "../utils/axios";
+import { useState } from "react";
 
-function SignUpPage() {
+const LoginPage = () => {
   return (
     <Container>
-      <Header />
-      <SignUp />
+      <Header></Header>
+      <Login></Login>
     </Container>
   );
-}
+};
 
-export default SignUpPage;
+export default LoginPage;
 
 const Container = styled.div`
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;

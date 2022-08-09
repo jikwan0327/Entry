@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-import * as S from "./style.jsx";
+import * as S from "./style";
 
 const Header = () => {
   const logout = () => {

@@ -1,20 +1,20 @@
 import styled from "styled-components";
-import * as S from "./loginStyle.jsx";
-import { useState, useRef } from "react";
-import { ReqLogin } from "../../utils/axios.jsx";
+import * as S from "./loginStyle";
+import React, { useState, useRef } from "react";
+import { ReqLogin } from "../../utils/axios";
 
 const Login = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
-  const LogInput = useRef();
+  const LogInput: any = useRef();
 
-  const IdEnter = (e) => {
+  const IdEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") LogInput.current.focus();
   };
 
-  const PwEnter = (e) => {
-    if (e.key == "Enter") console.log(pw);
+  const PwEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") axios();
   };
 
   const axios = () => {

@@ -1,6 +1,6 @@
-import * as S from "./style.jsx";
+import * as S from "./style";
 import { useState } from "react";
-import { ReqPosting } from "../../utils/axios.jsx";
+import { ReqPosting } from "../../utils/axios";
 
 const Write = () => {
   const [title, setTitle] = useState("");

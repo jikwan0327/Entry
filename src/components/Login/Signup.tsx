@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styled from "styled-components";
 import * as S from "./signupStyle";
 import { ReqSignUp } from "../../utils/axios";
 
@@ -22,14 +21,13 @@ function SignUp() {
     }
   };
 
-  const allFill = (key) => {
+  const allFill = (key: string) => {
     if (name !== "" && id !== "" && pw !== "" && APw !== "") {
       setFill(true);
     }
-    if (name == "" || id == "" || pw == "" || APw == "") {
+    if (name === "" || id === "" || pw === "" || APw === "") {
       setFill(false);
-    }
-    if (key == "") {
+    } else if (key == "") {
       setFill(false);
     }
   };
@@ -64,6 +62,7 @@ function SignUp() {
         ></S.PWInput>
         <S.PWAgain>비밀번호 확인</S.PWAgain>
         <S.PWAgainInput
+          required
           onChange={(e) => {
             setAPw(e.target.value);
             allFill(e.target.value);

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "../components/Header/Header";
 import My from "../components/MyPage/My";
-import Table from "../components/Table/Table";
+import MyTable from "../components/Table/MyTable";
 
 const MyPage = () => {
   return (
@@ -9,7 +9,7 @@ const MyPage = () => {
       <Header></Header>
       <My></My>
       <Wrapper>
-        <Table></Table>
+        <MyTable></MyTable>
       </Wrapper>
     </>
   );

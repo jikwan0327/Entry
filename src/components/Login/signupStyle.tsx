@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface Fillprops {
+  fill: string;
+}
+
 export const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -106,7 +110,7 @@ export const PWAgainInput = styled.input`
   padding-left: 10px;
 `;
 
-export const ConfirmBtn = styled.div`
+export const ConfirmBtn = styled.div<Fillprops>`
   display: flex;
   justify-content: center;
   align-items: center;

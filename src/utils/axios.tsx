@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const URL = "https://freshman.entrydsm.hs.kr";
 
-export const ReqLogin = (id, password) => {
+export const ReqLogin = (id: string, password: string) => {
   return function () {
     axios({
       method: "post",
@@ -23,7 +23,7 @@ export const ReqLogin = (id, password) => {
   };
 };
 
-export const ReqSignUp = (id, password, name) => {
+export const ReqSignUp = (id: string, password: string, name: string) => {
   return function () {
     axios({
       method: "post",
@@ -45,7 +45,7 @@ export const ReqSignUp = (id, password, name) => {
   };
 };
 
-export const ReqPosting = (title, content) => {
+export const ReqPosting = (title: string, content: string) => {
   return function () {
     axios
       .post(
@@ -65,7 +65,7 @@ export const ReqPosting = (title, content) => {
   };
 };
 
-export const ReqEditMyPage = (img, name, introduce) => {
+export const ReqEditMyPage = (img: string, name: string, introduce: string) => {
   return function () {
     axios
       .patch(

@@ -1,6 +1,6 @@
 import axios from "axios";
 import Basic from "../../imgs/profile.png";
-import * as S from "./style.jsx";
+import * as S from "./style";
 import { useEffect, useState, useRef } from "react";
 import editProfile from "../../imgs/editprofile.png";
 import Hover from "../../imgs/HoverEdit.png";
@@ -10,11 +10,11 @@ const URL = "https://freshman.entrydsm.hs.kr";
 
 const My = () => {
   const [name, setName] = useState("이름");
-  const [content, setContent] = useState();
+  const [content, setContent] = useState("자기소개");
   const [img, setImg] = useState(Basic);
   const [hover, setHover] = useState(false);
   const [edit, setEdit] = useState(false);
-  const fileInput = useRef(null);
+  const fileInput: any = useRef(null);
 
   useEffect(() => {
     const getMyInfo = () => {
@@ -26,7 +26,10 @@ const My = () => {
           console.log(res.data);
           let data = res.data;
           setName(data.name);
-          setContent(data.introduce);
+          if (data.introduce !== null) {
+            setContent(data.introduce);
+          }
+          setImg(data.profile_url);
         });
     };
     getMyInfo();
@@ -39,17 +42,31 @@ const My = () => {
 
   const CEdit = () => {
     setEdit(false);
-    ReqEditMyPage(img, name, content);
+    console.log(img);
+    axios
+      .patch(
+        `${URL}/users/mypage`,
+        { profile_image_url: img, name, introduce: content },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const onChange = (e) => {
+  const onChange = (e: any) => {
     if (e.target.files[0]) {
       setImg(e.target.files[0]);
     } else {
       setImg(Basic);
       return;
     }
-    const reader = new FileReader();
+    const reader: any = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
         setImg(reader.result);
@@ -82,7 +99,7 @@ const My = () => {
               <S.EditExplain
                 placeholder="자기소개"
                 value={content}
-                onChange={(e) => {
+                onChange={(e: any) => {
                   setContent(e.target.value);
                 }}
               ></S.EditExplain>
