@@ -127,3 +127,9 @@ export const ConfirmBtn = styled.div<Fillprops>`
   text-align: left;
   color: white;
 `;
+
+export const Eye = styled.img`
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 280px;
+`;

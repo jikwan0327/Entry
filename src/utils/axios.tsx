@@ -14,6 +14,7 @@ export const ReqLogin = (id: string, password: string) => {
     })
       .then((res) => {
         localStorage.setItem("accessToken", res.data.access_token);
+        alert("로그인 성공");
         window.location.href = "/";
       })
       .catch((err) => {
@@ -35,12 +36,12 @@ export const ReqSignUp = (id: string, password: string, name: string) => {
       },
     })
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("accessToken", res.data.access_token);
         window.location.href = "/";
+        alert("회원가입에 성공하였습니다");
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        alert("회원가입에 실패하였습니다");
       });
   };
 };

@@ -1,14 +1,25 @@
 import * as S from "./style";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ReqPosting } from "../../utils/axios";
 
 const Write = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [fill, setFill] = useState(false);
 
   const submit = () => {
     ReqPosting(title, text)();
   };
+
+  const Handle = () => {
+    {
+      text && title.length >= 1 ? setFill(true) : setFill(false);
+    }
+  };
+
+  useEffect(() => {
+    Handle();
+  }, [title, text]);
 
   return (
     <S.Container>
@@ -24,7 +35,9 @@ const Write = () => {
         }}
         placeholder="내용을 입력해 주세요."
       ></S.Detail>
-      <S.Posting onClick={submit}>게시하기</S.Posting>
+      <S.Posting fill={fill} onClick={submit}>
+        게시하기
+      </S.Posting>
     </S.Container>
   );
 };

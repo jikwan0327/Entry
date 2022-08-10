@@ -29,7 +29,9 @@ const My = () => {
           if (data.introduce !== null) {
             setContent(data.introduce);
           }
-          setImg(data.profile_url);
+          if (data.profile_url !== null) {
+            setImg(data.profile_url);
+          }
         });
     };
     getMyInfo();

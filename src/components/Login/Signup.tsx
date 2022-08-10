@@ -1,6 +1,8 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./signupStyle";
 import { ReqSignUp } from "../../utils/axios";
+import Eye from "../../imgs/eye.png";
+import Eyeoff from "../../imgs/eyeoff.png";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -8,6 +10,8 @@ function SignUp() {
   const [pw, setPw] = useState("");
   const [APw, setAPw] = useState("");
   const [fill, setFill] = useState(false);
+  const [eye, setEye] = useState(false);
+  const [aEye, setAEye] = useState(false);
 
   const axios = () => {
     if (name == "" || id == "" || pw == "" || APw == "") {
@@ -21,14 +25,19 @@ function SignUp() {
     }
   };
 
-  const allFill = (key: string) => {
-    if (name !== "" && id !== "" && pw !== "" && APw !== "") {
-      setFill(true);
+  const Handler = () => {
+    {
+      id && pw && name && APw.length >= 1 ? setFill(true) : setFill(false);
     }
-    if (name === "" || id === "" || pw === "" || APw === "") {
-      setFill(false);
-    } else if (key == "") {
-      setFill(false);
+  };
+
+  useEffect(() => {
+    Handler();
+  }, [id, name, pw, APw]);
+
+  const PWEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") {
+      axios();
     }
   };
 
@@ -40,7 +49,6 @@ function SignUp() {
         <S.NameInput
           onChange={(e) => {
             setName(e.target.value);
-            allFill(e.target.value);
           }}
           placeholder="이름을 입력해주세요"
         ></S.NameInput>
@@ -48,26 +56,28 @@ function SignUp() {
         <S.IDInput
           onChange={(e) => {
             setId(e.target.value);
-            allFill(e.target.value);
           }}
           placeholder="아이디를 입력해주세요."
         ></S.IDInput>
         <S.PW>비밀번호</S.PW>
+        <S.Eye onClick={() => setEye(!eye)} src={eye ? Eyeoff : Eye}></S.Eye>
         <S.PWInput
+          type={eye ? "text" : "password"}
           onChange={(e) => {
             setPw(e.target.value);
-            allFill(e.target.value);
           }}
           placeholder="비밀번호를 입력해주세요."
         ></S.PWInput>
         <S.PWAgain>비밀번호 확인</S.PWAgain>
+        <S.Eye onClick={() => setAEye(!aEye)} src={aEye ? Eyeoff : Eye}></S.Eye>
         <S.PWAgainInput
+          type={aEye ? "text" : "password"}
           required
           onChange={(e) => {
             setAPw(e.target.value);
-            allFill(e.target.value);
           }}
           placeholder="비밀번호를 한번 더 입력해주세요."
+          onKeyPress={PWEnter}
         ></S.PWAgainInput>
         <S.ConfirmBtn fill={fill ? "#5F85BB" : "lightgray"} onClick={axios}>
           확인

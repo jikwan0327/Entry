@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface Fillprops {
+  fill: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,11 +44,10 @@ export const Detail = styled.textarea`
   color: normal gray;
 `;
 
-export const Posting = styled.button`
+export const Posting = styled.button<Fillprops>`
   width: 130px;
   height: 40px;
-  background-color: lightgray;
-  background-color: #e0e0e0;
+  background-color: ${(props) => (props.fill ? "#5F85BB" : "lightgray")};
   border-radius: 8px;
   color: white;
   border: 0;

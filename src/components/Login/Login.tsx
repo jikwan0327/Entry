@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import * as S from "./loginStyle";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ReqLogin } from "../../utils/axios";
+import Eye from "../../imgs/eye.png";
+import Eyeoff from "../../imgs/eyeoff.png";
 
 const Login = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
+  const [fill, setFill] = useState(false);
+  const [eye, setEye] = useState(false);
+  const [saveId, setSaveId] = useState(false);
 
   const LogInput: any = useRef();
 
@@ -21,6 +26,16 @@ const Login = () => {
     ReqLogin(id, pw)();
   };
 
+  const HandleInput = () => {
+    {
+      id && pw.length >= 1 ? setFill(true) : setFill(false);
+    }
+  };
+
+  useEffect(() => {
+    HandleInput();
+  }, [id, pw]);
+
   return (
     <>
       <S.Container>
@@ -35,8 +50,9 @@ const Login = () => {
             onKeyPress={IdEnter}
           ></S.IDInput>
           <S.PW>비밀번호</S.PW>
+          <S.Eye onClick={() => setEye(!eye)} src={eye ? Eyeoff : Eye}></S.Eye>
           <S.PWInput
-            type="password"
+            type={eye ? "text" : "password"}
             onChange={(e) => {
               setPw(e.target.value);
             }}
@@ -45,10 +61,17 @@ const Login = () => {
             ref={LogInput}
           ></S.PWInput>
           <S.Save>
-            <S.CheckBox></S.CheckBox>
+            <S.CheckBox
+              onClick={() => {
+                setSaveId(!saveId);
+              }}
+              saveId={saveId}
+            ></S.CheckBox>
             <S.SaveID>아이디 저장</S.SaveID>
           </S.Save>
-          <S.Confirm onClick={axios}>완료</S.Confirm>
+          <S.Confirm onClick={axios} fill={fill ? "#5F85BB" : "lightgray"}>
+            완료
+          </S.Confirm>
         </S.Wrapper>
       </S.Container>
     </>

@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+interface Fillprops {
+  fill: string;
+}
+
+interface SaveIdprops {
+  saveId: boolean;
+}
+
 export const Container = styled.div`
   height: 550px;
   width: 450px;
@@ -64,12 +72,13 @@ export const PWInput = styled.input`
   padding-left: 10px;
 `;
 
-export const CheckBox = styled.div`
+export const CheckBox = styled.div<SaveIdprops>`
   width: 18px;
   height: 18px;
   border-radius: 50px;
   border: 1px solid darkgray;
   margin-right: 6px;
+  background-color: ${(props) => (props.saveId ? "black" : "white")};
 `;
 
 export const SaveID = styled.div`
@@ -83,14 +92,14 @@ export const Save = styled.div`
   margin-top: 20px;
 `;
 
-export const Confirm = styled.div`
+export const Confirm = styled.div<Fillprops>`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
   width: 310px;
   height: 40px;
-  background-color: lightgray;
+  background-color: ${(props) => props.fill};
   border-radius: 4px;
   font-family: Noto Sans KR;
   font-size: 18px;
@@ -99,4 +108,10 @@ export const Confirm = styled.div`
   letter-spacing: 0em;
   text-align: left;
   color: white;
+`;
+
+export const Eye = styled.img`
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 280px;
 `;
