@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as S from "./style";
+import Swal from "sweetalert2";
 
 const Header = () => {
   const logout = () => {
     localStorage.removeItem("accessToken");
-    alert("로그아웃 되었습니다");
-    window.location.href = "/";
+    Swal.fire("로그아웃 되었습니다", "", "info").then(() => {
+      window.location.href = "/";
+    });
   };
 
   const [ok, setOk] = useState(false);

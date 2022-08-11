@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { ReqLogin } from "../../utils/axios";
 import Eye from "../../imgs/eye.png";
 import Eyeoff from "../../imgs/eyeoff.png";
+import Check from "../../imgs/check.png";
 
 const Login = () => {
   const [id, setId] = useState("");
@@ -62,11 +63,23 @@ const Login = () => {
           ></S.PWInput>
           <S.Save>
             <S.CheckBox
+              id="checkbox"
+              type="checkbox"
               onClick={() => {
                 setSaveId(!saveId);
               }}
               saveId={saveId}
             ></S.CheckBox>
+            {saveId ? (
+              <S.CheckImg
+                onClick={() => {
+                  setSaveId(!saveId);
+                }}
+                src={Check}
+              ></S.CheckImg>
+            ) : (
+              ""
+            )}
             <S.SaveID>아이디 저장</S.SaveID>
           </S.Save>
           <S.Confirm onClick={axios} fill={fill ? "#5F85BB" : "lightgray"}>

@@ -123,11 +123,5 @@ export const Line = styled.div`
   left: 1476px;
   top: 27px;
   margin-right: 10px;
-
   background: #ffffff;
-  height: 26.66666603088379px;
-  width: 1px;
-  left: 1476px;
-  top: 27px;
-  border-radius: 0px;
 `;

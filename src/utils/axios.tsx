@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const URL = "https://freshman.entrydsm.hs.kr";
 
@@ -14,12 +15,12 @@ export const ReqLogin = (id: string, password: string) => {
     })
       .then((res) => {
         localStorage.setItem("accessToken", res.data.access_token);
-        alert("로그인 성공");
-        window.location.href = "/";
+        Swal.fire("로그인 성공!", "You success the login!", "success").then(() => {
+          window.location.href = "/";
+        });
       })
       .catch((err) => {
-        console.log(err);
-        alert("\t로그인 오류\n 아이디와 비밀번호를 다시 입력해주세요");
+        Swal.fire("로그인 오류", "아이디와 비밀번호를 다시 입력해주세요", "error");
       });
   };
 };
@@ -37,11 +38,12 @@ export const ReqSignUp = (id: string, password: string, name: string) => {
     })
       .then((res) => {
         localStorage.setItem("accessToken", res.data.access_token);
-        window.location.href = "/";
-        alert("회원가입에 성공하였습니다");
+        Swal.fire("회원가입 성공", "회원가입에 성공하였습니다", "success").then(() => {
+          window.location.href = "/";
+        });
       })
       .catch(() => {
-        alert("회원가입에 실패하였습니다");
+        Swal.fire("회원가입 실패", "회원가입에 실패하였습니다", "error");
       });
   };
 };
@@ -56,12 +58,13 @@ export const ReqPosting = (title: string, content: string) => {
           headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
         }
       )
-      .then((res) => {
-        console.log(res.data);
-        window.location.href = "/";
+      .then(() => {
+        Swal.fire("게시글 성공", "게시글이 정상적으로 추가 되었습니다", "success").then(() => {
+          window.location.href = "/";
+        });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        Swal.fire("실패", "게시글을 추가하는데에 실패하였습니다", "error");
       });
   };
 };
@@ -84,32 +87,3 @@ export const ReqEditMyPage = (img: string, name: string, introduce: string) => {
       });
   };
 };
-
-// export const ReqDelete = (id) => {
-//   return function () {
-//     axios.delete(URL + "/posts/", {
-//       headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-//     });
-//     window.location.href = "/";
-//     alert("hi");
-//   };
-// };
-
-// export const ReqEditPost = (id, title, content) => {
-//   return function () {
-//     axios
-//       .patch(
-//         URL + `/users/${id}`,
-//         { title, content },
-//         {
-//           headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-//         }
-//       )
-//       .then((res) => {
-//         console.log(res.data);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };

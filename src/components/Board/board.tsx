@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./style";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const URL = "https://freshman.entrydsm.hs.kr";
 
@@ -45,17 +46,32 @@ const Board = ({ location }: Locationprops) => {
   }, []);
 
   const Delete = () => {
-    let userAccept = window.confirm("정말 삭제하시겠습니까?");
-    if (userAccept) {
-      axios
-        .delete(`${URL}/posts/${location.state.data}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-        })
-        .then(() => {
-          alert("게시글이 삭제되었습니다");
-          window.location.href = "/";
-        });
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "삭제하시면 다시는 게시물을 보실 수 없습니다",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${URL}/posts/${location.state.data}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+          })
+          .then(() => {
+            Swal.fire("삭제 성공", "게시글이 삭제되었습니다", "success").then(() => {
+              window.location.href = "/";
+            });
+          })
+          .catch(() => {
+            Swal.fire("삭제 실패", "게시글을 삭제하지 못했습니다", "error").then(() => {
+              window.location.href = "/";
+            });
+          });
+      }
+    });
   };
 
   const EditBtn = () => {
@@ -64,7 +80,7 @@ const Board = ({ location }: Locationprops) => {
 
   const Edit = () => {
     if (title == "" || content == "") {
-      alert("내용을 입력하세요");
+      Swal.fire("warning", "내용을 입력하세요", "warning");
     } else {
       let id = location.state.data;
       axios
@@ -76,12 +92,14 @@ const Board = ({ location }: Locationprops) => {
           }
         )
         .then(() => {
-          alert("수정이 완료되었습니다");
-          window.location.href = "/";
+          Swal.fire("수정 성공", "수정이 완료되었습니다", "success").then(() => {
+            window.location.href = "/";
+          });
         })
-        .catch((err) => {
-          console.log(err);
-          alert("오류");
+        .catch(() => {
+          Swal.fire("수정 실패", "오류", "error").then(() => {
+            window.location.href = "/";
+          });
         });
     }
   };

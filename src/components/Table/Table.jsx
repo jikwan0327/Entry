@@ -10,7 +10,7 @@ const Table = () => {
   const [list, setList] = useState([]);
   const [currentNum, setCurrnetNum] = useState(1);
   let arr = Array.from({ length: parseInt((list.length - 1) / 10) + 1 }, () => 0);
-  let currentArr = new Array(10).fill(0);
+  let currentArr = new Array(currentNum * 10).fill(0);
 
   useEffect(() => {
     const getLists = () => {
@@ -32,6 +32,14 @@ const Table = () => {
           <S.TableBody>
             <S.BodyNum key={index}>{index + 1}</S.BodyNum>
             <Link to="/board" style={{ textDecoration: "none" }} state={{ data: no.id }}>
+              <S.BodyTitle>{no.title}</S.BodyTitle>
+            </Link>
+          </S.TableBody>
+        ))}
+        {currentArr.slice(list.length, (currentNum - 1) * 10 + 10).map((no, index) => (
+          <S.TableBody key={index}>
+            <S.BodyNum key={index}></S.BodyNum>
+            <Link to="/" style={{ textDecoration: "none", cursor: "auto" }}>
               <S.BodyTitle>{no.title}</S.BodyTitle>
             </Link>
           </S.TableBody>

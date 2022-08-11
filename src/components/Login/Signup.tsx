@@ -3,6 +3,7 @@ import * as S from "./signupStyle";
 import { ReqSignUp } from "../../utils/axios";
 import Eye from "../../imgs/eye.png";
 import Eyeoff from "../../imgs/eyeoff.png";
+import Swal from "sweetalert2";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -15,12 +16,12 @@ function SignUp() {
 
   const axios = () => {
     if (name == "" || id == "" || pw == "" || APw == "") {
-      alert("입력하세요");
+      Swal.fire("warning", "입력하세요", "warning");
     } else {
       if (pw === APw) {
         ReqSignUp(id, pw, name)();
       } else {
-        alert("비밀번호가 일치하지 않습니다");
+        Swal.fire("비밀번호 오류", "비밀번호가 일치하지 않습니다", "warning");
       }
     }
   };

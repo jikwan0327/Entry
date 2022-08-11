@@ -63,6 +63,7 @@ const My = () => {
 
   const onChange = (e: any) => {
     if (e.target.files[0]) {
+      console.log(e.target.files);
       setImg(e.target.files[0]);
     } else {
       setImg(Basic);
@@ -72,6 +73,7 @@ const My = () => {
     reader.onload = () => {
       if (reader.readyState === 2) {
         setImg(reader.result);
+        console.log(reader.result);
       }
     };
     reader.readAsDataURL(e.target.files[0]);

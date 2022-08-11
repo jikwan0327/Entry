@@ -72,13 +72,23 @@ export const PWInput = styled.input`
   padding-left: 10px;
 `;
 
-export const CheckBox = styled.div<SaveIdprops>`
+export const CheckBox = styled.input<SaveIdprops>`
   width: 18px;
   height: 18px;
-  border-radius: 50px;
+  border-radius: 50%;
   border: 1px solid darkgray;
-  margin-right: 6px;
-  background-color: ${(props) => (props.saveId ? "black" : "white")};
+  appearance: none;
+  margin-bottom: 6px;
+  cursor: pointer;
+`;
+
+export const CheckImg = styled.img`
+  position: absolute;
+  width: 13px;
+  height: 14px;
+  margin-left: 7px;
+  margin-bottom: 3px;
+  cursor: pointer;
 `;
 
 export const SaveID = styled.div`
