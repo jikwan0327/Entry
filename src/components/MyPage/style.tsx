@@ -3,12 +3,35 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   margin-top: 150px;
-  margin-left: 500px;
+  justify-content: center;
+  margin-right: 40px;
+`;
+
+export const ImgWrapper = styled.div`
+  margin-right: 790px;
+`;
+
+export const Hover = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 12px;
+  border-radius: 50px;
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  margin-right: 790px;
+  background-color: rgb(0, 0, 0, 0.4);
 `;
 
 export const Profile = styled.img`
   width: 70px;
   height: 70px;
+  max-width: 70px;
+  max-height: 70px;
+  min-width: 70px;
+  min-height: 70px;
   border-radius: 500px;
 `;
 
@@ -42,7 +65,9 @@ export const Explain = styled.div`
 `;
 
 export const MyPosting = styled.div`
-  margin-left: 500px;
+  display: flex;
+  justify-content: center;
+  margin-right: 820px;
   margin-top: 30px;
   font-weight: 800;
   font-size: 20px;

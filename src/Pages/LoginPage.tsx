@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "../components/Header/Header";
 import Login from "../components/Login/Login";
-import { ReqLogin } from "../utils/axios";
+import { ReqLogin } from "../utils/api";
 import { useState } from "react";
 
 const LoginPage = () => {

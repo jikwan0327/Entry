@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as S from "./style";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useQuery } from "react-query";
 
 const URL = "https://freshman.entrydsm.hs.kr";
 
@@ -11,39 +12,19 @@ interface Locationprops {
 
 const Board = ({ location }: Locationprops) => {
   const [title, setTitle] = useState("제목");
-  const [poster, setPoster] = useState("게시자");
   const [content, setContent] = useState("엔트리 프론트엔드 인턴 게시판 상세보기 디자인입니다.");
-  const [isMine, setIsMine] = useState(false);
   const [edit, setEdit] = useState(false);
-
-  useEffect(() => {
+  const { isLoading, data } = useQuery(["id", location.state.data], async () => {
     if (localStorage.getItem("accessToken") !== null) {
-      const getLoginInfo = () => {
-        axios
-          .get(`${URL}/posts/${location.state.data}`, {
-            headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-          })
-          .then((res) => {
-            let data = res.data;
-            setIsMine(data.is_mine);
-            setContent(data.content);
-            setPoster(data.name);
-            setTitle(data.title);
-          });
-      };
-      getLoginInfo();
+      const { data } = await axios.get(`${URL}/posts/${location.state.data}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+      });
+      return data;
     } else {
-      const getInfo = () => {
-        axios.get(`${URL}/posts/${location.state.data}`).then((res) => {
-          let data = res.data;
-          setContent(data.content);
-          setPoster(data.name);
-          setTitle(data.title);
-        });
-      };
-      getInfo();
+      const { data } = await axios.get(`${URL}/posts/${location.state.data}`);
+      return data;
     }
-  }, []);
+  });
 
   const Delete = () => {
     Swal.fire({
@@ -76,6 +57,8 @@ const Board = ({ location }: Locationprops) => {
 
   const EditBtn = () => {
     setEdit(true);
+    setTitle(data?.title);
+    setContent(data?.content);
   };
 
   const Edit = () => {
@@ -115,9 +98,9 @@ const Board = ({ location }: Locationprops) => {
               value={title}
             ></S.TitleInput>
           ) : (
-            <S.Title>{title}</S.Title>
+            <S.Title>{data?.title}</S.Title>
           )}
-          <S.PostMan>{poster}</S.PostMan>
+          <S.PostMan>{data?.name}</S.PostMan>
         </S.Header>
         {edit ? (
           <S.BodyInput
@@ -128,7 +111,7 @@ const Board = ({ location }: Locationprops) => {
             }}
           ></S.BodyInput>
         ) : (
-          <S.Body>{content}</S.Body>
+          <S.Body>{data?.content}</S.Body>
         )}
       </S.Container>
       <S.BtnContainer>
@@ -138,8 +121,8 @@ const Board = ({ location }: Locationprops) => {
           </S.EditBtn>
         ) : (
           <>
-            {isMine ? <S.EditBtn onClick={Delete}>삭제하기</S.EditBtn> : ""}
-            {isMine ? <S.EditBtn onClick={EditBtn}>수정하기</S.EditBtn> : ""}
+            {data?.is_mine ? <S.EditBtn onClick={Delete}>삭제하기</S.EditBtn> : ""}
+            {data?.is_mine ? <S.EditBtn onClick={EditBtn}>수정하기</S.EditBtn> : ""}
           </>
         )}
       </S.BtnContainer>

@@ -4,22 +4,26 @@ import * as S from "./style";
 import { useEffect, useState, useRef } from "react";
 import editProfile from "../../imgs/editprofile.png";
 import Hover from "../../imgs/HoverEdit.png";
-import { ReqEditMyPage } from "../../utils/axios";
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
 
-const URL = "https://freshman.entrydsm.hs.kr";
+const BASE_URL = "https://freshman.entrydsm.hs.kr";
 
 const My = () => {
   const [name, setName] = useState("이름");
   const [content, setContent] = useState("자기소개");
-  const [img, setImg] = useState(Basic);
+  const [img, setImg] = useState("");
+  const [sendImg, setSendImg] = useState(Basic);
   const [hover, setHover] = useState(false);
   const [edit, setEdit] = useState(false);
   const fileInput: any = useRef(null);
+  const [lastImg, setLastImg] = useState();
+  const [imgHover, setImgHover] = useState(false);
 
   useEffect(() => {
     const getMyInfo = () => {
       axios
-        .get(`${URL}/users/mypage`, {
+        .get(`${BASE_URL}/users/mypage`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
         })
         .then((res) => {
@@ -31,6 +35,8 @@ const My = () => {
           }
           if (data.profile_url !== null) {
             setImg(data.profile_url);
+          } else {
+            setImg(Basic);
           }
         });
     };
@@ -42,49 +48,72 @@ const My = () => {
     setHover(false);
   };
 
-  const CEdit = () => {
-    setEdit(false);
-    console.log(img);
-    axios
-      .patch(
-        `${URL}/users/mypage`,
-        { profile_image_url: img, name, introduce: content },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
+  const uploadImg = async (img: string) => {
+    const formData = new FormData();
+    formData.append("image", img);
+    await axios
+      .post(`${BASE_URL}/images`, formData, {
+        headers: {
+          "Content-Type": `multipart/form-data; `,
+        },
       })
-      .catch((err) => {
-        console.log(err);
+      .then((res) => {
+        setImg(res.data.image_url);
       });
   };
 
-  const onChange = (e: any) => {
-    if (e.target.files[0]) {
-      console.log(e.target.files);
-      setImg(e.target.files[0]);
+  const CEdit = async () => {
+    await axios
+      .patch(
+        `${BASE_URL}/users/mypage`,
+        {
+          profile_image_url: img,
+          name: name,
+          introduce: content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+    setEdit(false);
+  };
+
+  const onChange = async (e: any) => {
+    if (e.target && e.target.files[0]) {
+      setSendImg(e.target.files[0]);
     } else {
-      setImg(Basic);
+      setSendImg(Basic);
       return;
     }
     const reader: any = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
         setImg(reader.result);
-        console.log(reader.result);
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+    uploadImg(e.target.files[0]);
   };
 
   return (
     <>
       <S.Container>
         <input type="file" onChange={onChange} style={{ display: "none" }} accept="image/*" ref={fileInput} />
+        {imgHover ? <S.Hover>프로필 수정</S.Hover> : ""}
         {edit ? (
-          <S.Profile src={img} onClick={() => fileInput.current.click()}></S.Profile>
+          <S.Profile
+            src={img}
+            onMouseOver={() => setImgHover(true)}
+            onMouseOut={() => setImgHover(false)}
+            onClick={() => fileInput.current.click()}
+            style={{ filter: imgHover ? "opacity(0.3) brightness(50%)" : "" }}
+          ></S.Profile>
         ) : (
           <S.Profile src={img}></S.Profile>
         )}
@@ -94,7 +123,7 @@ const My = () => {
               <S.Wrapper3>
                 <S.EditName
                   value={name}
-                  onChange={(e) => {
+                  onChange={(e: any) => {
                     setName(e.target.value);
                   }}
                 ></S.EditName>

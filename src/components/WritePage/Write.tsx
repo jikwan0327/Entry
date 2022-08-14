@@ -1,6 +1,6 @@
 import * as S from "./style";
 import { useState, useEffect } from "react";
-import { ReqPosting } from "../../utils/axios";
+import { ReqPosting } from "../../utils/api";
 
 const Write = () => {
   const [title, setTitle] = useState("");
@@ -24,13 +24,13 @@ const Write = () => {
   return (
     <S.Container>
       <S.Title
-        onChange={(e) => {
+        onChange={(e: any) => {
           setTitle(e.target.value);
         }}
         placeholder="제목을 입력해 주세요."
       ></S.Title>
       <S.Detail
-        onChange={(e) => {
+        onChange={(e: any) => {
           setText(e.target.value);
         }}
         placeholder="내용을 입력해 주세요."

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import * as S from "./loginStyle";
 import React, { useState, useRef, useEffect } from "react";
-import { ReqLogin } from "../../utils/axios";
+import { ReqLogin } from "../../utils/api";
+import { useCookies, Cookies } from "react-cookie";
 import Eye from "../../imgs/eye.png";
 import Eyeoff from "../../imgs/eyeoff.png";
 import Check from "../../imgs/check.png";
@@ -25,11 +26,29 @@ const Login = () => {
 
   const axios = () => {
     ReqLogin(id, pw)();
+    IsSave();
   };
 
   const HandleInput = () => {
     {
       id && pw.length >= 1 ? setFill(true) : setFill(false);
+    }
+  };
+
+  const cookies = new Cookies();
+
+  useEffect(() => {
+    if (cookies.get("id") !== undefined) {
+      setId(cookies.get("id"));
+      setSaveId(true);
+    }
+  }, []);
+
+  const IsSave = () => {
+    if (saveId) {
+      cookies.set("id", id);
+    } else {
+      cookies.remove("id");
     }
   };
 
@@ -44,17 +63,18 @@ const Login = () => {
         <S.Wrapper>
           <S.ID>아이디</S.ID>
           <S.IDInput
-            onChange={(e) => {
+            onChange={(e: any) => {
               setId(e.target.value);
             }}
             placeholder="아이디를 입력해주세요."
             onKeyPress={IdEnter}
+            value={id}
           ></S.IDInput>
           <S.PW>비밀번호</S.PW>
           <S.Eye onClick={() => setEye(!eye)} src={eye ? Eyeoff : Eye}></S.Eye>
           <S.PWInput
             type={eye ? "text" : "password"}
-            onChange={(e) => {
+            onChange={(e: any) => {
               setPw(e.target.value);
             }}
             placeholder="비밀번호를 입력해주세요."

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./signupStyle";
-import { ReqSignUp } from "../../utils/axios";
+import { ReqSignUp } from "../../utils/api";
 import Eye from "../../imgs/eye.png";
 import Eyeoff from "../../imgs/eyeoff.png";
 import Swal from "sweetalert2";
@@ -48,15 +48,16 @@ function SignUp() {
         <S.SignUpMessage>회원가입</S.SignUpMessage>
         <S.Name>이름</S.Name>
         <S.NameInput
-          onChange={(e) => {
+          onChange={(e: any) => {
             setName(e.target.value);
           }}
           placeholder="이름을 입력해주세요"
         ></S.NameInput>
         <S.ID>아이디</S.ID>
         <S.IDInput
-          onChange={(e) => {
+          onChange={(e: any) => {
             setId(e.target.value);
+            console.log(e);
           }}
           placeholder="아이디를 입력해주세요."
         ></S.IDInput>
@@ -64,7 +65,7 @@ function SignUp() {
         <S.Eye onClick={() => setEye(!eye)} src={eye ? Eyeoff : Eye}></S.Eye>
         <S.PWInput
           type={eye ? "text" : "password"}
-          onChange={(e) => {
+          onChange={(e: any) => {
             setPw(e.target.value);
           }}
           placeholder="비밀번호를 입력해주세요."
@@ -74,7 +75,7 @@ function SignUp() {
         <S.PWAgainInput
           type={aEye ? "text" : "password"}
           required
-          onChange={(e) => {
+          onChange={(e: any) => {
             setAPw(e.target.value);
           }}
           placeholder="비밀번호를 한번 더 입력해주세요."

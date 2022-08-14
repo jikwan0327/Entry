@@ -42,7 +42,7 @@ const Table = () => {
         {currentArr.slice(list.length, (currentNum - 1) * 10 + 10).map((no, index) => (
           <S.TableBody key={index}>
             <S.BodyNum key={index}></S.BodyNum>
-            <Link to="/" style={{ textDecoration: "none", cursor: "auto" }}>
+            <Link to="/my" style={{ textDecoration: "none", cursor: "auto" }}>
               <S.BodyTitle>{no.title}</S.BodyTitle>
             </Link>
           </S.TableBody>

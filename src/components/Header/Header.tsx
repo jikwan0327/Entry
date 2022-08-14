@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as S from "./style";
 import Swal from "sweetalert2";
+import Icon from "../../imgs/icon.png";
 
 const Header = () => {
   const logout = () => {
@@ -22,12 +23,10 @@ const Header = () => {
 
   return (
     <S.Container>
-      <S.Circle></S.Circle>
-      <S.Entry></S.Entry>
-      <S.Entry1></S.Entry1>
-      <S.Entry2></S.Entry2>
-      <S.Entry3></S.Entry3>
-      <Link to="/">
+      <S.Circle>
+        <S.Img src={Icon} />
+      </S.Circle>
+      <Link to="/" style={{ textDecoration: "none" }}>
         <S.Logo>Entry DSM</S.Logo>
       </Link>
       {ok ? (

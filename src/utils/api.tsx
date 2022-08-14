@@ -43,7 +43,9 @@ export const ReqSignUp = (id: string, password: string, name: string) => {
         });
       })
       .catch(() => {
-        Swal.fire("회원가입 실패", "회원가입에 실패하였습니다", "error");
+        Swal.fire("회원가입 실패", "회원가입에 실패하였습니다", "error").then(() => {
+          window.location.href = "/";
+        });
       });
   };
 };
@@ -65,25 +67,6 @@ export const ReqPosting = (title: string, content: string) => {
       })
       .catch(() => {
         Swal.fire("실패", "게시글을 추가하는데에 실패하였습니다", "error");
-      });
-  };
-};
-
-export const ReqEditMyPage = (img: string, name: string, introduce: string) => {
-  return function () {
-    axios
-      .patch(
-        URL + "/users/mypage",
-        { profile_image_url: img, name, introduce },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
       });
   };
 };
